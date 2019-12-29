@@ -3,7 +3,9 @@ import React from "react";
 //Copy froms from here: https://tachyons.io/components/#forms
 //In jsx we need to close the tags from the form
 
+// We convert this into a component so we can add state to the page
 class Signin extends React.Component {
+  //We add this constructor in order for us to use "props" and to add "state"
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +28,9 @@ class Signin extends React.Component {
     fetch("http://localhost:3000/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
+      //stringify convers the object to JSON
       body: JSON.stringify({
-        email: this.state.signInEmail,
+        username: this.state.signInEmail,
         password: this.state.signInPassword
       })
     })
@@ -41,7 +44,9 @@ class Signin extends React.Component {
       });
   };
 
+  //Components always have render()
   render() {
+    //We access the props that we received with the "this" keyword
     const { onRouteChange } = this.props;
     return (
       <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">

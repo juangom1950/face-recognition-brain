@@ -52,6 +52,14 @@ class App extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   fetch("http://localhost:3000")
+  //     .then(response => response.json())
+  //     //.then(data => console.log(data))
+  //     //Shortcut for the code above
+  //     .then(console.log);
+  // }
+
   loadUser = data => {
     this.setState({
       user: {
@@ -62,6 +70,7 @@ class App extends Component {
         joined: data.joined
       }
     });
+    //console.log("loadUser: ", data);
   };
 
   calculateFaceLocation = data => {
@@ -90,6 +99,7 @@ class App extends Component {
   //updating the State after and async call to the API
   //Explenation "How to Use the setState Callback in React": https://upmostly.com/tutorials/how-to-use-the-setstate-callback-in-react
   onButtonSubmit = () => {
+    console.log("UserId: ", this.state.user.id);
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
@@ -104,6 +114,10 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
+              //console.log("Count: ", count);
+              //https://googlechrome.github.io/samples/object-assign-es6/
+              //Object.assign() copies the values (of all enumerable own properties) from one or more source objects to a target object
+              //Here we make sure that user stay the same and it is just updating the user object adding to  "entries"
               this.setState(Object.assign(this.state.user, { entries: count }));
             });
         }
